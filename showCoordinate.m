@@ -21,7 +21,13 @@ function showCoordinate(gene_name)
       x = xxx{i_image};
       y = yyy{i_image};
       plot(x,y);
-
+      
+%       figure;
+%       BW = poly2mask(x,y, size(I,1),size(I,2) );
+%       Igray = rgb2gray(I);
+%       Igray(~BW) = Igray(~BW)*0.8;
+%       imshow(Igray);
+%       
       action  = input('x=exit, n=next, p=previous: ', 's');
       if isempty(action), action = 'n'; end
       switch action

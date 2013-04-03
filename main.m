@@ -1,3 +1,4 @@
+close all;
 filenames = dir( 'ish_images');
 conf.dir_name = 'ish_images';
 conf.coordinateFolder = 'coordinates';
