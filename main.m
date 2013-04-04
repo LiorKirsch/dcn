@@ -1,13 +1,17 @@
 close all;
-filenames = dir( 'ish_images');
+geneNames = dir( 'ish_images');
 conf.dir_name = 'ish_images';
 conf.coordinateFolder = 'coordinates';
 
-for i_file = 1: length(filenames)
+[geneNames, ~, ~, ~] = readPurkOutput('purkinjeDetectorList.csv');
 
-  if filenames(i_file).isdir && ~any(strcmp(filenames(i_file).name ,{'.', '..'}));
-    geneName = filenames(i_file).name;
-    coordinates = markRegion(geneName, conf);
-  end
+geneNames = geneNames(1:50);
+for i_file = 1: length(geneNames)
+
+%  if geneNames(i_file).isdir && ~any(strcmp(geneNames(i_file).name ,{'.', '..'}));
+%    geneName = geneNames(i_file).name;
+%    coordinates = markRegion(geneName, conf);
+%  end
   
+    coordinates = markRegion(geneNames{i_file}, conf);
 end

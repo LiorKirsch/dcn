@@ -15,16 +15,19 @@ function data = markRegion(gene_name,conf)
             [~, fileName, ext] = fileparts(data.downloadedFilesNames{imageIndex}) ;
             fileName = [fileName, ext];
             fileName = fullfile(conf.dir_name,gene_name,fileName);
-             I = imread(fileName);
+            I = imread(fileName);
+            scale = 1200 / size(I,1);
+            I = imresize(I, scale);
              
             if data.coordinateFound(imageIndex)
-                showMarkedImage(I,data.coordinates{imageIndex}.x,data.coordinates{imageIndex}.y);
+                showMarkedImage(I,data.coordinates{imageIndex}.x* scale,data.coordinates{imageIndex}.y* scale, data.coordinates{imageIndex}.type);
             else
+                
                 imshow(I);
             end
-            title(imageIndex);
+            title([gene_name, '      ' ,num2str(imageIndex)]);
             
-            [imageIndex ,data.coordinates{imageIndex}, data.coordinateFound(imageIndex)] = showAndMarkImage(imageIndex, data.coordinates{imageIndex},data.coordinateFound(imageIndex));
+            [imageIndex ,data.coordinates{imageIndex}, data.coordinateFound(imageIndex)] = showAndMarkImage(imageIndex, data.coordinates{imageIndex},data.coordinateFound(imageIndex),scale);
             
         end
             
@@ -32,7 +35,7 @@ function data = markRegion(gene_name,conf)
     end
 end
 
-function [nextIndexToShow ,coordinates, coordinateFound] = showAndMarkImage(indexToShow, coordinates, coordinateFound)
+function [nextIndexToShow ,coordinates, coordinateFound] = showAndMarkImage(indexToShow, coordinates, coordinateFound,scale)
     
     if ~coordinateFound
         coordinates.x = [];  coordinates.y = [];
@@ -49,6 +52,9 @@ function [nextIndexToShow ,coordinates, coordinateFound] = showAndMarkImage(inde
         if length(x) > 1
             coordinates.x=x;%save the coordinates to the matching pic.
             coordinates.y=y;
+            coordinates.x = coordinates.x/scale;
+            coordinates.y = coordinates.y/scale;
+            coordinates.type = button;
             coordinateFound = ~isempty(x);
             nextIndexToShow = indexToShow;
         else
