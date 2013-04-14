@@ -9,7 +9,7 @@ for i_file = 1: length(geneNames)
 
     gene_name = geneNames{i_file};
     disp(gene_name);
-    %matFiles = dir( fullfile(conf.coordinateFolder,[gene_name,'_*.mat']));
+
     matFiles = dir( fullfile(conf.dataWithExpressionFiles,[gene_name,'_*.mat']));
     
     for i_matFile = 1: length(matFiles)

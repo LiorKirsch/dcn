@@ -1,0 +1,18 @@
+main.m
+examine the images in ish_images and mark them -> ./coordinates
+
+mainDownloadExpresssion.m
+downloads the expression images of the marked files to a folder ./expression  outputs ->  ./afterExpression
+
+mainCalcExpression.m
+calculates the expression of the marked areas in the masked images.  ->  ./afterExpression
+
+mainU.m
+sortes the genes by their ratio of expression "purkinje" / "whole DCN" -> geneNames.mat
+
+
+
+
+
+mainReviewMarks.m
+show the marks and save jpegs to the folder output

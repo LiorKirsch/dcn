@@ -30,8 +30,13 @@ for i_file = 1: length(geneNames)
             fileName = [fileName, ext];
             fileName = fullfile(conf.expressionImagesFolder,fileName);
             
-            imageFilePath = downloadImage(markedExpressionPath{imageIndex}, fileName);
-            data.expressionImageFile{ releventIndices(imageIndex)} = imageFilePath;
+            data.expressionImageFile{ releventIndices(imageIndex)} = fileName;
+            if ~exist(fileName,'file')
+                fprintf('downloading %s \n' , fileName);
+                imageFilePath = downloadImage(markedExpressionPath{imageIndex}, fileName);
+            else
+                fprintf('file %s exists\n' , fileName);
+            end
         end
         save(fullfile(conf.dataWithExpressionFiles,matFileName), '-struct', 'data')
     end
